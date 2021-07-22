@@ -46,6 +46,11 @@ function createCards(colors) {
     const card = document.createElement('div')
     card.addEventListener("click", function (e) {
       card.style.backgroundColor = color
+      flipCard(card)
+      // experimenting with what can be done in the function
+      setTimeout(() => {
+        card.style.backgroundColor = ''
+      }, 2 * 1000);
     })
     gameBoard.appendChild(card)
   }
@@ -54,7 +59,7 @@ function createCards(colors) {
 /** Flip a card face-up. */
 
 function flipCard(card) {
-  card.style.backgroundColor = color
+  console.log(card.style.backgroundColor)
 }
 
 /** Flip a card face-down. */
