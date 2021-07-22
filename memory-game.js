@@ -44,7 +44,9 @@ function createCards(colors) {
   for (let color of colors) {
     // missing code here ...
     const card = document.createElement('div')
-    card.style.backgroundColor = color
+    card.addEventListener("click", function (e) {
+      card.style.backgroundColor = color
+    })
     gameBoard.appendChild(card)
   }
 }
@@ -52,17 +54,17 @@ function createCards(colors) {
 /** Flip a card face-up. */
 
 function flipCard(card) {
-  // ... you need to write this ...
+  card.style.backgroundColor = color
 }
 
 /** Flip a card face-down. */
 
 function unFlipCard(card) {
-  // ... you need to write this ...
+  card.style.backgroundColor = '' // setting background color to '' or 'none' will remove the color
 }
 
 /** Handle clicking on a card: this could be first-card or second-card. */
 
 function handleCardClick(evt) {
-  // ... you need to write this ...
+
 }
