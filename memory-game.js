@@ -33,16 +33,19 @@ function shuffle(items) {
 
 /** Create card for every color in colors (each will appear twice)
  *
- * Each div DOM element will have:
+ * Each"div"DOM element will have:
  * - a class with the value of the color
  * - an click listener for each card to handleCardClick
  */
 
 function createCards(colors) {
-  const gameBoard = document.getElementById("game");
+  const gameBoard = document.getElementById('game');
 
   for (let color of colors) {
     // missing code here ...
+    const card = document.createElement('div')
+    card.style.backgroundColor = color
+    gameBoard.appendChild(card)
   }
 }
 
