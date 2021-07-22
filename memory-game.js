@@ -41,28 +41,26 @@ function shuffle(items) {
 function createCards(colors) {
   const gameBoard = document.getElementById('game');
 
+  let counter = 0 // define counter outside of loop so it's scope applies to to eventListener and also retains value
+
   for (let color of colors) {
-    // missing code here ...
     const card = document.createElement('div')
     card.classList.add(color)
     gameBoard.appendChild(card)
+
     card.addEventListener('click', function (e) {
-      handleCardClick(e)
-      flipCard(card)
-      setTimeout(() => {
-        unFlipCard(card)
-      }, 2 * 1000);
+      if (counter < 2) {
+        counter += handleCardClick(e)
+      }
+      console.log(counter)
     })
-
   }
-
 }
 
 /** Flip a card face-up. */
 
 function flipCard(card) {
   card.style.backgroundColor = card.classList
-
 }
 
 /** Flip a card face-down. */
@@ -74,5 +72,17 @@ function unFlipCard(card) {
 /** Handle clicking on a card: this could be first-card or second-card. */
 
 function handleCardClick(evt) {
-  console.log(evt.target)
+  if (!evt.target.style.backgroundColor) {
+    flipCard(evt.target)
+    return 1
+  }
+  return 0
 }
+
+// need a variable/tracker to keep track of number of cards flipped
+// compare first card with second card to see if they match
+// if they don't math, remove backgroundColor and prevent being clicked on 
+// if they do match, remove eventListener
+
+// matching
+// need a way to store or compare cards clicked
