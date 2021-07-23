@@ -41,7 +41,7 @@ function shuffle(items) {
 function createCards(colors) {
   const gameBoard = document.getElementById('game');
 
-  let flippedColors = []
+  let flippedCards = []
 
   for (let color of colors) {
     const card = document.createElement('div')
@@ -49,15 +49,23 @@ function createCards(colors) {
     gameBoard.appendChild(card)
 
     card.addEventListener('click', function (e) {
-      if (flippedColors.length < 2) {
-        flippedColors.push(handleCardClick(e))
-      }
-      if (flippedColors.length === 2) {
-        if (flippedColors[0] === flippedColors[1]) {
-          console.log('Match')
+      if (flippedCards.length <= 1) {
+        let flippedCard = handleCardClick(e)
+        if (flippedCard !== undefined) {
+          flippedCards.push(flippedCard)
         }
       }
-      console.log(flippedColors)
+      if (flippedCards.length === 2) {
+        if (flippedCards[0].style.backgroundColor === flippedCards[1].style.backgroundColor) {
+          flippedCards = []
+        } else {
+          setTimeout(() => {
+            unFlipCard(flippedCards[0])
+            unFlipCard(flippedCards[1])
+            flippedCards = []
+          }, 1000);
+        }
+      }
     })
   }
 }
@@ -66,32 +74,22 @@ function createCards(colors) {
 
 function flipCard(card) {
   card.style.backgroundColor = card.classList[0]
-  card.classList.add('flipped')
-  console.log(card.classList)
-  // return card.style.backgroundColor
+
 }
 
 /** Flip a card face-down. */
 
 function unFlipCard(card) {
   card.removeAttribute('style')
-  card.classList.remove('flipped')
+
 }
 
 /** Handle clicking on a card: this could be first-card or second-card. */
 
 function handleCardClick(evt) {
-  if (!evt.target.style.backgroundColor && evt.target.classList[1] !== 'flipped') {
+  if (!evt.target.style.backgroundColor) {
     flipCard(evt.target)
-    return evt.target.style.backgroundColor
+    return evt.target
   }
-  return 0
 }
 
-// need a variable/tracker to keep track of number of cards flipped
-// compare first card with second card to see if they match
-// if they don't math, remove backgroundColor and prevent being clicked on 
-// if they do match, remove eventListener
-
-// matching
-// need a way to store or compare cards clicked
