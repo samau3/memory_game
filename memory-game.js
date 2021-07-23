@@ -41,7 +41,7 @@ function shuffle(items) {
 function createCards(colors) {
   const gameBoard = document.getElementById('game');
 
-  let counter = 0 // define counter outside of loop so it's scope applies to to eventListener and also retains value
+  let flippedColors = []
 
   for (let color of colors) {
     const card = document.createElement('div')
@@ -49,10 +49,15 @@ function createCards(colors) {
     gameBoard.appendChild(card)
 
     card.addEventListener('click', function (e) {
-      if (counter < 2) {
-        counter += handleCardClick(e)
+      if (flippedColors.length < 2) {
+        flippedColors.push(handleCardClick(e))
       }
-      console.log(counter)
+      if (flippedColors.length === 2) {
+        if (flippedColors[0] === flippedColors[1]) {
+          console.log('Match')
+        }
+      }
+      console.log(flippedColors)
     })
   }
 }
@@ -60,21 +65,25 @@ function createCards(colors) {
 /** Flip a card face-up. */
 
 function flipCard(card) {
-  card.style.backgroundColor = card.classList
+  card.style.backgroundColor = card.classList[0]
+  card.classList.add('flipped')
+  console.log(card.classList)
+  // return card.style.backgroundColor
 }
 
 /** Flip a card face-down. */
 
 function unFlipCard(card) {
   card.removeAttribute('style')
+  card.classList.remove('flipped')
 }
 
 /** Handle clicking on a card: this could be first-card or second-card. */
 
 function handleCardClick(evt) {
-  if (!evt.target.style.backgroundColor) {
+  if (!evt.target.style.backgroundColor && evt.target.classList[1] !== 'flipped') {
     flipCard(evt.target)
-    return 1
+    return evt.target.style.backgroundColor
   }
   return 0
 }
