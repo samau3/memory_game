@@ -60,8 +60,7 @@ function createCards(colors) {
           flippedCards = []
         } else {
           setTimeout(() => {
-            unFlipCard(flippedCards[0])
-            unFlipCard(flippedCards[1])
+            unFlipCard(flippedCards[0], flippedCards[1])
             flippedCards = []
           }, 1000);
         }
@@ -79,9 +78,9 @@ function flipCard(card) {
 
 /** Flip a card face-down. */
 
-function unFlipCard(card) {
-  card.removeAttribute('style')
-
+function unFlipCard(card1, card2) {
+  card1.removeAttribute('style')
+  card2.removeAttribute('style')
 }
 
 /** Handle clicking on a card: this could be first-card or second-card. */
@@ -92,4 +91,3 @@ function handleCardClick(evt) {
     return evt.target
   }
 }
-
