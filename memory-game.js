@@ -59,10 +59,7 @@ function createCards(colors) {
         if (flippedCards[0].style.backgroundColor === flippedCards[1].style.backgroundColor) {
           flippedCards = []
         } else {
-          setTimeout(() => {
-            unFlipCard(flippedCards[0], flippedCards[1])
-            flippedCards = []
-          }, 1000);
+          unFlipCard(flippedCards[0], flippedCards[1], FOUND_MATCH_WAIT_MSECS)
         }
       }
     })
@@ -77,10 +74,15 @@ function flipCard(card) {
 }
 
 /** Flip a card face-down. */
-
-function unFlipCard(card1, card2) {
-  card1.removeAttribute('style')
-  card2.removeAttribute('style')
+function unFlipCard(card1, card2, delay) {
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      card1.removeAttribute('style')
+      card2.removeAttribute('style')
+      console.log('done')
+      resolve();
+    }, delay);
+  })
 }
 
 /** Handle clicking on a card: this could be first-card or second-card. */
