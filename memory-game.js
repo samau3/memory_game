@@ -62,7 +62,7 @@ function createCards(colors) {
           setTimeout(() => {
             unFlipCard(flippedCards[0], flippedCards[1])
             flippedCards = []
-          }, 1000);
+          }, FOUND_MATCH_WAIT_MSECS);
         }
       }
     })
